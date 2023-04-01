@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{{ obj_order }}
+
+<table style="width:1000px;">
+    <thead>
+        <tr>
+            <th>
+                <h1>번호</h1>
+            </th>
+
+            <th>
+                <h1>종류</h1>
+            </th>
+
+            <th>
+                <h1>메뉴</h1>
+            </th>
+
+            <th>
+                <h1>가격</h1>
+            </th>
+
+            <th>
+                <h1>개수</h1>
+            </th>
+
+            <th>
+                <h1>시간</h1>
+            </th>
+
+            <th>
+                <h1>결제 금액</h1>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for order in obj_order %}
+        <tr>
+            <th>
+            <h1>{{ forloop.counter }}</h1>
+            </th>
+            <th>
+            <h1>{{order.menu_type}}</h1>
+            </th>
+            <th>
+            <h1>{{order.name}}</h1>
+            </th>
+            <th>
+            <h1>{{order.price}}</h1>
+            </th>
+            <th>
+            <h1>{{order.number}}</h1>
+            </th>
+            <th>
+            <h1>{{order.date_create}}</h1>
+            </th>
+            <th>
+            <h1></h1>
+            </th>
+        </tr>
+        {% endfor %}
+
+
+    </tbody>
+
+</table>
+
+{% endblock %}

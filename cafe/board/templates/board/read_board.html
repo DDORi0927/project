@@ -1,0 +1,129 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <button>글 목록</button>
+    <button onclick="location.href='{% url 'board_update' board_id=obj_board.id %}'">글 수정</button>
+    <button onclick="location.href='{% url 'board_delete' board_id=obj_board.id %}'">글 삭제</button>
+</div>
+
+
+    <div class="container_page_title">
+        <h2>Board</h2>
+    </div>
+    <p>{{obj_board}}</p>
+    <p>{{obj_board.id}}</p>
+
+    <table>
+        <tbody>
+            <tr align="center">
+                <td>글 번호</td>
+                <td>{{ board.id }}</td>
+            </tr>
+            <tr align="center">
+                <td>종류</td>
+                <td>{{ obj_board.get_category_display }}</td>
+            </tr>
+            <tr align="center">
+                <td>제목</td>
+                <td>{{ obj_board.get_title_display }}</td>
+            </tr>
+            <tr align="center">
+                <td>글쓴이</td>
+                <td>{{ obj_board.writer }}</td>
+            </tr>
+            <tr align="center">
+                <td>날짜</td>
+                <td>{{ obj_board.date_create|date:'Y년 M d일'}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+<p>{{obj_reply}}</p>
+
+
+                <p>{{ reply.writer }}</p>
+                <p>{{ reply.content }}</p>
+
+    <br><br>
+    <div>
+
+        <form method="post">
+            {% csrf_token %}
+            <button id="good_button" style="color:white" onclick="change_heart"><i class="fa-solid fa-heart"></i></button>
+            <script>
+                function change_heart(){
+                    console.log("GOOD");
+                    var id_good_button = document.getElementById("good_button")
+                    id_good_button.style.color = 'red'
+                    console.log("good")}
+
+            </script>
+        </form>
+    </div>
+
+
+    <br><br>
+    <div>
+        <form style="margin:5px" method="post" action="{% url 'reply_create' board_id=obj_board.id %}">
+            {% csrf_token %}
+            <h1>댓글</h1>
+            <textarea style="width: 500px; height: 50px;" name="content"></textarea>
+            <button type="submit">등록</button>
+        </form>
+        {% for reply in obj_reply %}
+        <div style="width: 500px; border: 2px solid black; border-radius:7px; margin:5px; padding:5px">
+            <p>{{ reply.writer }}</p>
+            <p>{{ reply.date_create }}</p>
+            <br>
+            <p id="reply_content{{ reply.id }}" >{{ reply.content }}</p>
+
+            <div style="margin:5px; padding:5px">
+                <button id="reply_update_button" onclick="click_button_update_reply({{ reply.id }}, '{{ reply.content }}')">댓글 수정</button>
+
+
+                <form method="post"  action="{% url 'reply_delete' board_id=obj_board.id reply_id=reply.id %}">
+                {% csrf_token %}
+                <button id="reply_delete_button">댓글 삭제</button>
+                </form>
+
+                    <script>
+                    function click_button_update_reply(reply_id, reply_content){
+                        console.log("reply_id : ", reply_id);
+                        console.log("reply_content : ", reply_content);
+
+                        var csrftoken = '{% csrf_token %}'
+                        var id_reply_content = document.getElementById("reply_content"+reply_id)
+                        var id_reply_div = document.getElementById("reply_div"+reply_id)
+
+                        var id_reply_update_button = document.getElementById("reply _update_button")
+                        var id_reply_delete_button = document.getElementById("reply_delete_button")
+                        id_reply_update_button.style.display = 'none'
+                        id_reply_delete_button.style.display = 'none'
+
+                        id_reply_content.innerHTML =
+                        "<form method='post' action='1/update_reply/" + reply_id + " '>"
+                         + csrftoken +
+                         "<textarea style='width:90%' name='content'>"
+                         + reply_content
+                         + "</textarea>" +
+                         "<div id='container_buttons'" + reply_id + ">"
+                         + "<button type='submit'>등록</button>"
+                         + "<button>취소</button>" +
+                         "</div>" +
+                         "</form>";
+
+
+
+
+
+                    }
+                    </script>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+{% endblock %}

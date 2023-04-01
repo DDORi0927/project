@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <div>
+        <button onclick="location.href='{% url 'order_list_index' %}'">주문 내역 확인</button>
+        <button onclick="location.href='{% url 'menu_list_index' %}?menu_type=coffee'">메뉴 관리</button>
+    </div>
+</div>
+
+{% endblock %}

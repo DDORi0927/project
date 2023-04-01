@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<br><br><br><br><br><br>
+<h1 class="center" style="font-size : 30px">BOARD</h1>
+<br>
+
+<form method="get">
+    <select name="category" id="select_category" onchange="this.form.submit()">
+        <option value="all">전체</option>
+        <option value="free">자유</option>
+        <option value="question">문의</option>
+    </select>
+</form>
+<div>
+    <form method="get">
+        <input type="text" name="q">
+        <button type="submit">찾기</button>
+    </form>
+</div>
+
+
+<div>
+    <table border="1" style="width : 1000px; height : 250px;border:1px solid black">
+        <thead>
+            <tr align="center">
+                <td>글 번호</td>
+                <td>종류</td>
+                <td>제목</td>
+                <td>글쓴이</td>
+                <td>날짜</td>
+            </tr>
+<!--        {% for board in list_board%}-->
+<!--            <p>{{ board.id }} - {{board.title}}</p>-->
+<!--        {% endfor %}-->
+        </thead>
+        <tbody>
+            {% for board in list_board%}
+            <tr align="center">
+                <td>{{ board.id }}</td>
+                <td>{{ board.category }}</td>
+                <td><p><a href="{% url 'board_read' board_id=board.id %}">{{ board.title }}</a></p></td>
+                <td>{{ board.writer }}</td>
+                <td>{{ board.date_create|date:'Y년 M d일'}}</td>
+            </tr>
+            {% endfor %}
+<!--            <tr align="center">-->
+<!--                <td>4</td>-->
+<!--                <td>자유</td>-->
+<!--                <td>아메리카노 한잔?</td>-->
+<!--                <td>under</td>-->
+<!--                <td>2022년 09월 04일</td>-->
+<!--            </tr>-->
+<!--            <tr align="center">-->
+<!--                <td>3</td>-->
+<!--                <td>문의</td>-->
+<!--                <td>생크림케이크 싱싱해요</td>-->
+<!--                <td>coding</td>-->
+<!--                <td>2022년 09 03일</td>-->
+<!--            </tr>-->
+<!--            <tr align="center">-->
+<!--                <td>2</td>-->
+<!--                <td>자유</td>-->
+<!--                <td>파이 따뜻하네요</td>-->
+<!--                <td>idea</td>-->
+<!--                <td>2022년 09월 02일</td>-->
+<!--            </tr>-->
+<!--            <tr align="center">-->
+<!--                <td>1</td>-->
+<!--                <td>자유</td>-->
+<!--                <td>언더아이디어 카페 최고!</td>-->
+<!--                <td>under</td>-->
+<!--                <td>2022년 09월 01일</td>-->
+
+<!--            </tr>-->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var loc = location.search;
+    var params = new URLSearchParams(loc);
+    var get_category = params.get('category')
+    console.log(get_category);
+    var id_select_category = document.getElementById("select_category");
+    for (i=0; i<id_select_category.length;i++){
+        if (id_select_category.options[i].value == get_category){
+        id_select_category.options[i].selected = true;
+        break
+        }
+    }
+</script>
+
+{% endblock %}

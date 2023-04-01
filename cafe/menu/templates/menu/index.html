@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <ul>
+        <li>
+            {% for menu_type, list_menu in dict_menu.items %}
+                <h3>{{menu_type}}</h3>
+                <ul>
+                    {% for menu in list_menu %}
+                    <li>
+                        <img src="/media/{{ menu.image }}" style="width : 80px; height: 80px;" >
+                        <div style="display:inline-block">
+                            <h4>{{menu.name}}</h4>
+                            <p>가격 : {{menu.price}}원</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </li>
+    </ul>
+</div>
+
+{% endblock %}

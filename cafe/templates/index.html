@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<h1 class="center" style="font-size : 30px">HOME</h1>
+<br>
+<div class="center">
+    <div class="align line">
+        <p>새로운 카페 문화!</p>
+        <img style="width:300px; height:300px" src="cafe/static/images/image/main_cafe.jpg">
+    </div>
+
+    <div class="align line">
+        <p>카페를 방문해보세요 !</p>
+        <img style="width:300px; height:300px" src="cafe/static/images/image/main_guest.jpg">
+        <button>메뉴 확인하기</button>
+    </div>
+    <div class="align l ine">
+        <p>가맹점 커뮤니티 방문 !</p>
+        <img style="width:300px; height:300px" src="cafe/static/images/image/main_owner.jpg">
+        <button onclick="location.href={% url 'board_index' %}" >게시판 페이지</button>
+    </div>
+</div>
+
+
+{% endblock %}

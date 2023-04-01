@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        <tbody>
+            <tr>
+                <td >번호</td>
+                <td>자동 입력</td>
+            </tr>
+            <tr>
+                <td>종류</td>
+                <td>
+                    <select name="menu_type">
+                        <option value="coffee">커피</option>
+                        <option value="cake">케이크</option>
+                        <option value="beverage">음료</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>이미지</td>
+                <td><input type="file" name="image"></td>
+            </tr>
+            <tr>
+                <td>메뉴 이름</td>
+                <td><input name="name" type="text"></td>
+            </tr>
+            <tr>
+                <td>가격</td>
+                <td><input name="price" type="text"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button>메뉴 저장</button>
+    <button>메뉴 목록</button>
+</form>
+{% endblock %}

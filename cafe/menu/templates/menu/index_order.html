@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<ul style="width:800px; height:500px; overflow:scroll">
+
+    {% for menu in obj_menu %}
+        <li> <button onclick="click_button('{{menu.menu_type}}', '{{menu.name}}', '{{menu.price}}')">{{menu.name}}</button> </li>
+
+    {% endfor %}
+</ul>
+
+<div style="border:1px solid;">
+    <table id="table" style="width:500px; height:10px;">
+        <thead>
+            <tr>
+                <th>
+                    <h1>주문메뉴</h1>
+                </th>
+                <th>
+                    <h1>가격</h1>
+                </th>
+                <th>
+                    <h1>개수</h1>
+                </th>
+                <th>
+                    <h1>+ / -</h1>
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <form method="post" id="form">
+        {% csrf_token %}
+        <div id="container_payment">
+            <span>결제 금액 입력 : </span>
+            <input type="text" name="payment" id="input_payment"/>
+            <span> 원</span>
+            <input style="display:none" type="text" id="input_order_menu" name="input_order_menu"/>
+        </div>
+        <button id="order_list_button" onclick="click_move_payment()" type="button">결제 화면</button>
+    </form>
+</div>
+
+<form>
+    <script>
+        let obj_menu = {};
+
+        var table_content = document.getElementById("table")
+        var total_content = document.getElementById("total")
+        var confirm_content = document.getElementById("order_list_button")
+        var payment_content = document.getElementById("input_payment")
+        var total = 0
+
+        function click_button(menu_type, menu_name, menu_price){
+                obj_menu[menu_name] = {"name": menu_name, "price": menu_price, "count": 0}
+                console.log(obj_menu);
+                total += Number(menu_price);
+                console.log(total);
+
+                }
+        function click_move_payment(){
+            var id_input_order_menu = document.getElementById("input_order_menu");
+            var id_form = document.getElementById("form");
+            console.log(payment_content.value);
+            if (payment_content.value >= total){
+
+
+                }
+            id_input_order_menu.value = JSON.stringify(obj_menu);
+            }
+    </script>
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <p>삭제하변 복구할 수 없습니다. {{ obj_board.id }} 번 글 삭제하시겠습니까?</p>
+    <br><br>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <button type="button" onclick="location.href=' {% url 'board_read' board_id=obj_board.id %}'">취소</button>
+            <button type="submit" name="delete" value="Delete">확인</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
